@@ -28,7 +28,7 @@ public class SpringConfig {
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/day04_SpringDataJPA?characterEncoding=UTF-8&createDatabaseIfNotExist=true");
         dataSource.setUsername("root");
-        dataSource.setPassword("root");
+        dataSource.setPassword("");
         return dataSource;
     }
 
