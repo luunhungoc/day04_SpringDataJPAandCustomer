@@ -22,10 +22,12 @@ public interface BookRepository extends CrudRepository<BookEntity,Integer> {
     BookEntity findByIsbn(String isbn);
     List<BookEntity> findByPublishDateAfter(LocalDate date);
 
+    List<BookEntity> deleteBookById(int i);
     @Query("select b from BookEntity b where b.name like ?1%") //?1 : param 1, ?2 : param 2
     List<BookEntity> getBookNameStartWith(String name);
 
     @Query(value="select * from book b where b.price <?1 and b.numberPage >=?2",nativeQuery=true)
     List<BookEntity> getBookWherePriceLessThanAndNumOfPageGreaterThan(double price, int numOfPage);
+
 
 }

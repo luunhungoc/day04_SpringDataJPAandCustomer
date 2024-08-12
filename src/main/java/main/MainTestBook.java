@@ -16,7 +16,30 @@ public class MainTestBook {
 
     public static void main(String[] args){
         createNewBook();
-        List<BookEntity> bookList=bookRepository.findByAuthor("Jame");
+//        readAllBook();
+//        readBookById(1);
+//        updateBook(1);
+//        deleteBookById(1);
+//        deleteAll();
+//        findByAuthor("Jame");
+        findByAuthorAndPrice("Jame",200);
+    }
+
+    public static void findByAuthorAndPrice(String author, double price){
+        List<BookEntity> bookList=bookRepository.findByAuthorAndPrice(author,price);
+        if(bookList.size()!=0){
+            System.out.println("Found "+bookList.size()+" book(s) of "+author+" and price of "+price);
+            System.out.println("They are: ");
+            for(BookEntity book:bookList){
+                System.out.println(book.toString());
+            }
+
+        }
+        else  System.out.println("Not found "+bookList.size()+" book(s) of "+author+" and price of "+price);
+    }
+
+    public static void findByAuthor(String author){
+        List<BookEntity> bookList=bookRepository.findByAuthor(author);
         if(bookList.size()!=0){
             System.out.println("Found "+bookList.size()+" book(s) of Roger");
             System.out.println("They are: ");
@@ -24,17 +47,21 @@ public class MainTestBook {
                 System.out.println(book.toString());
             }
         }
-
-        Optional<BookEntity> bookList2=bookRepository.findById(1);
-        System.out.println(bookList2.toString());
     }
-//        readBook();
-//      updateBook();
 
+    public static void deleteBookById(int i){
+        BookEntity bookEntity = bookRepository.findById(i).get();
+        if(bookEntity!=null){
+            System.out.println("Deleted bookId"+i);
+            bookRepository.delete(bookEntity);
+            }
+        }
+    public static void deleteAll(){
+        System.out.println("Deleted All");
+            bookRepository.deleteAll();
 
-
-
-public static void createNewBook(){
+    }
+    public static void createNewBook(){
     BookEntity bookEntity =new BookEntity();
     bookEntity.setName("Java A-Z");
     bookEntity.setAuthor("Roger");
@@ -49,8 +76,9 @@ public static void createNewBook(){
     if(result!=null){
         System.out.println("A new book saved successfully, book ID= "+ bookEntity.getId());
     }
+
 }
-public static void readBook(){
+public static void readAllBook(){
     List<BookEntity> bookList=(List<BookEntity>) bookRepository.findAll();
     System.out.println("Found "+bookList.size()+" book(s) in the table book");
     System.out.println("They are: ");
@@ -70,8 +98,8 @@ public static void readBookById(int id){
     }
 }
 
-public static void updateBook(){
-    BookEntity bookEntity = bookRepository.findById(1).get();
+public static void updateBook(int i){
+    BookEntity bookEntity = bookRepository.findById(i).get();
     System.out.println("Book data before updating");
     System.out.println(bookEntity.toString());
 

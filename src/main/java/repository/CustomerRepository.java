@@ -1,6 +1,7 @@
 package repository;
 
 import entity.CustomerEntity;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ public interface CustomerRepository extends CrudRepository<CustomerEntity,Intege
     List<CustomerEntity> findById(int id);
     List<CustomerEntity> findByName(String name);
     List<CustomerEntity> findByPhoneOrEmail(String phone, String email);
-
+    List<CustomerEntity> findAll();
 
 //    List<BookEntity> findByAuthorAndPrice(String author,double price);
 //    List<BookEntity> findByPriceOrNumberOfPage(double price, int numOfPage);
@@ -25,8 +26,8 @@ public interface CustomerRepository extends CrudRepository<CustomerEntity,Intege
 //    @Query("select b from BookEntity b where b.name like ?1%") //?1 : param 1, ?2 : param 2
 //    List<BookEntity> getBookNameStartWith(String name);
 //
-//    @Query(value="select * from book b where b.price <?1 and b.numberPage >=?2",nativeQuery=true)
-//    List<BookEntity> getBookWherePriceLessThanAndNumOfPageGreaterThan(double price, int numOfPage);
+    @Query(value="select * from customer c where c.sex = ?1 and (2024-year(c.birthday))>=?2 and  (2024-year(c.birthday)) <=?3",nativeQuery=true)
+    List<CustomerEntity> findBySexAndAge(String sex,double fromAge, double toAge);
 
 }
 
